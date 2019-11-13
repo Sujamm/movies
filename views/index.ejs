@@ -1,14 +1,32 @@
 <% include partials/header %>
     <div class="container">
         <div class="jumbotron">
-            <div class="input-group">
-                <input style="" class="form-control my-0 py-1 border border-success" type="text" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-success" id="basic-text1"><i class="fas fa-search text-grey"
+            <form action="/index/s" method="GET">
+                <div class="input-group">
+                    <input style="" class="form-control my-0 py-1 border border-success" type="text" placeholder="Search" aria-label="Search" name="search" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-success" id="basic-text1" type="submit"><i class="fas fa-search text-grey"
                               aria-hidden="true"></i></button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
-        <h1>Latest Movies</h1>
+        <h1>Best Titles</h1>
+        <div class="row text-center">
+            <% if(bestMovies) { %>
+                <% bestMovies.forEach(function(movie){ %>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="img-thumbnail movie-img">
+                            <h4><strong><%= movie["Title"]%></strong> -
+                                <%= movie["Year"]%>
+                            </h4>
+                            <img class="img-responsive" src="<%= movie['Poster'] %>">
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <h1>No results found</h1>
+                            <% } %>
+        </div>
     </div>
     <% include partials/footer %>

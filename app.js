@@ -40,7 +40,14 @@ app.get("/:p/s", (req, res) => {
 });
 
 app.get("/upcoming", (req, res) => {
-    res.render("upcoming");
+    var url = "http://www.omdbapi.com/?s=harry+potter&apikey=fc1d3669";
+    request(url, (error, response, body) => {
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body);
+            upcomingMovies = data["Search"];
+            res.render("upcoming", { bestMovies: upcomingMovies });
+        }
+    });
 });
 
 app.get("/movies", (req, res) => {
